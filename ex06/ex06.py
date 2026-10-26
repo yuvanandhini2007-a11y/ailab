@@ -1,16 +1,12 @@
-# Rule-based reasoning system: Forward & Backward Chaining
 
-# Knowledge Base: rules are (premises -> conclusion)
 rules = [
     (["A", "B"], "C"),
     (["C"], "D"),
     (["D", "E"], "F")
 ]
 
-# Initial facts
 facts = {"A", "B", "E"}
 
-# Forward Chaining
 def forward_chaining(rules, facts, goal):
     inferred = set(facts)
     changed = True
@@ -25,7 +21,6 @@ def forward_chaining(rules, facts, goal):
                     return True, inferred
     return goal in inferred, inferred
 
-# Backward Chaining
 def backward_chaining(rules, facts, goal):
     if goal in facts:
         return True
