@@ -1,0 +1,48 @@
+import random
+
+class NQueensCSP:
+    def __init__(self, N):
+        self.N = N
+        self.domains = list(range(N))
+        
+    def conflicts(self, var, val, assignment):
+        """Calculates conflicts if a queen is placed at a specific row."""
+        count = 0
+        for i in range(self.N):
+            if i == var:
+                continue
+            
+            if assignment[i] == val or abs(assignment[i] - val) == abs(i - var):
+                count += 1
+        return count
+
+    def min_conflicts(self, max_steps=10000):
+        """Solves the N-Queens problem using Min-Conflicts algorithm."""
+        assignment = [random.choice(self.domains) for _ in range(self.N)]
+        
+        for _ in range(max_steps):
+           
+            conflicted_vars = [i for i in range(self.N) if self.conflicts(i, assignment[i], assignment) > 0]
+            
+            if not conflicted_vars:
+                return assignment
+                
+            var = random.choice(conflicted_vars)
+            
+            min_conflict_value = min(self.domains, key=lambda val: self.conflicts(var, val, assignment))
+            assignment[var] = min_conflict_value
+            
+        return None
+
+nqueens_4 = NQueensCSP(4)
+solution_4 = nqueens_4.min_conflicts()
+if solution_4:
+    print("Solution found:", solution_4, " #if(n=4)")
+else:
+    print("No solution found for N=4")
+nqueens_8 = NQueensCSP(8)
+solution_8 = nqueens_8.min_conflicts()
+if solution_8:
+    print("Solution found:", solution_8)
+else:
+    print("No solution found for N=8")
