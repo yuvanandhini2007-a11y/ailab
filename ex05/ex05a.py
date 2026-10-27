@@ -1,9 +1,9 @@
 import math
-#constants for players
+
 PLAYER_X='X'
 PLAYER_O='O'
 EMPTY=''
-#Evaluate the board
+
 def evaluate(board)
  for row in range(3):
      if board[row][0]==board[row][1]==board[row][2]!=EMPTY:
